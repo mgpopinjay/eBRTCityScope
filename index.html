@@ -176,48 +176,48 @@
         }
         #line28 {
             display:table-cell;
-            background-color:#fdbb84;
+            background-color:#9ecae1;
             width:180px;
         }
         #line66 {
             display:table-cell;
-            background-color:#7fcdbb;
+            background-color:#fdae6b;
             width:180px;
         }
-        #line33 {
+        #line32 {
             display:table-cell;
-            background-color: #c994c7;
+            background-color: #a1d99b;
             width:180px;
         }
         #lineCT {
             display:table-cell;
-            background-color:#a6bddb;
+            background-color:#fc9272;
             width:180px;
         }
 
         #line28Button { 
-            background-color:#e34a33;
+            background-color:#3182bd;
             color: white;
             border: none;
             font-weight: 800;
         }
 
         #line66Button { 
-            background-color:#2c7fb8;
+            background-color:#e6550d;
             color: white;
             border: none;
             font-weight: 800;
         }
 
-        #line33Button { 
-            background-color: #dd1c77;
+        #line32Button { 
+            background-color: #31a354;
             color: white;
             border: none;
             font-weight: 800;
         }
 
         #lineCTButton { 
-            background-color:#1c9099;
+            background-color:#de2d26;
             color: white;
             border: none;
             font-weight: 800;
@@ -234,7 +234,6 @@
         );
       });
     
-
 
     </script>    
 
@@ -271,8 +270,8 @@
                     });
         
         var icon28 = new StationIcon({iconUrl: 'assets/bus_stop_blue.png'});
-        var ctPlus = new StationIcon({iconUrl: 'assets/bus_stop_red.png'});
-        var icon33 = new StationIcon({iconUrl: 'assets/bus_stop_green.png'});
+        var iconCT = new StationIcon({iconUrl: 'assets/bus_stop_red.png'});
+        var icon32 = new StationIcon({iconUrl: 'assets/bus_stop_green.png'});
         var icon66 = new StationIcon({iconUrl: 'assets/bus_stop_orange.png'});
 
 
@@ -290,13 +289,13 @@
                                     var marker = L.marker(latlng,{icon: icon28});
                                     } 
                                     else if (feature.properties.corridor == "CT+"){
-                                    var marker = L.marker(latlng,{icon: ctPlus});
+                                    var marker = L.marker(latlng,{icon: iconCT});
                                     } 
                                     else if (feature.properties.corridor == "66+"){
                                     var marker = L.marker(latlng,{icon: icon66});
                                     } 
                                     else {
-                                    var marker = L.marker(latlng,{icon: icon33});
+                                    var marker = L.marker(latlng,{icon: icon32});
                                     };
                                     return marker;
                                }
@@ -316,7 +315,7 @@
 
         var line28 = new line({color: 'red'});
         var lineCTPlus = new line({color: 'blue'});
-        var line33 = new line({color: 'green'});
+        var line32 = new line({color: 'green'});
         var line66 = new line({color: 'yellow'});
 
 
@@ -330,7 +329,7 @@
                         } else if (feature.properties.corridor == "CT+"){
                             var line = lineCTPlus;
                         } else if (feature.properties.corridor == "66+"){
-                            var line = line33;
+                            var line = line32;
                         } else {
                             var line = line66;
                         };
@@ -344,7 +343,7 @@
                     } else if (feature.properties.corridor == "CT+"){
                         var line = L.polyline(latlng,{polyline: 'lineCTPlus'});
                     } else if (feature.properties.corridor == "66+"){
-                        var line = L.polyline(latlng,{polyline: 'line33'});
+                        var line = L.polyline(latlng,{polyline: 'line32'});
                     } else {
                         var line = L.polyline(latlng,{polyline: 'line66'});
                     };
@@ -366,7 +365,32 @@
                 ]);
                 console.log("line 28 clicked");
             });
-    
+            $("#line66").on("click", function() {
+                filterLine66()
+                mapB.fitBounds([
+                    [42.32784, -71.11639],  //Southwest corner coordinate
+                    [42.37833, -71.07536]   //Northeast corner coordinate
+                ]);
+                console.log("line 66 clicked");
+            });
+            $("#line32").on("click", function() {
+                filterLine32()
+                mapB.fitBounds([
+                    [42.23081, -71.15501],  //Southwest corner coordinate
+                    [42.30575, -71.10043]   //Northeast corner coordinate
+                ]);
+                console.log("line 66 clicked");
+            });
+            $("#lineCT").on("click", function() {
+                filterLineCT()
+                mapB.fitBounds([
+                    [42.32689, -71.12652],  //Southwest corner coordinate
+                    [42.38759, -71.0618]   //Northeast corner coordinate
+                ]);
+                console.log("line CT clicked");
+            });
+
+
         });
         
         // Function to update station icons to filtered subset of data showing Starbucks
@@ -386,6 +410,59 @@
                 }).addTo(mapB);
             });
         };
+
+        function filterLine66(){
+            removeStations();
+            $.getJSON("Shapefiles/v1/GeoJSON/stops.geojson",function(data){    
+                station_location = L.geoJson(data,{
+                    onEachFeature: function (feature, layer) {
+                        layer.bindPopup(feature.properties.stop_name);
+                    }, filter: function (feature, layer) {
+                        return feature.properties.corridor == "66+" && feature.properties.direction == 0;
+                    }, pointToLayer: function (feature, latlng) {
+                        var marker = L.marker(latlng,{icon: icon66});
+                    return marker;
+                                        
+                    }
+                }).addTo(mapB);
+            });
+        };
+
+        function filterLine32(){
+            removeStations();
+            $.getJSON("Shapefiles/v1/GeoJSON/stops.geojson",function(data){    
+                station_location = L.geoJson(data,{
+                    onEachFeature: function (feature, layer) {
+                        layer.bindPopup(feature.properties.stop_name);
+                    }, filter: function (feature, layer) {
+                        return feature.properties.corridor == "32+" && feature.properties.direction == 0;
+                    }, pointToLayer: function (feature, latlng) {
+                        var marker = L.marker(latlng,{icon: icon32});
+                    return marker;
+                                        
+                    }
+                }).addTo(mapB);
+            });
+        };
+
+        function filterLineCT(){
+            removeStations();
+            $.getJSON("Shapefiles/v1/GeoJSON/stops.geojson",function(data){    
+                station_location = L.geoJson(data,{
+                    onEachFeature: function (feature, layer) {
+                        layer.bindPopup(feature.properties.stop_name);
+                    }, filter: function (feature, layer) {
+                        return feature.properties.corridor == "CT+" && feature.properties.direction == 0;
+                    }, pointToLayer: function (feature, latlng) {
+                        var marker = L.marker(latlng,{icon: iconCT});
+                    return marker;
+                                        
+                    }
+                }).addTo(mapB);
+            });
+        };
+
+
 
         function removeStations(){
             mapB.removeLayer(station_location);
@@ -428,8 +505,6 @@
      <!-- CONTROL PANEL -->   
     <div id="navbar" style="width: 100%; height: 10%; bottom: 0%; position: absolute">
      
-
-       
 
                 <ul class="nav navbar-nav">
                                 <li>
@@ -477,8 +552,8 @@
                                                 </ul>  
                                             </div>
 
-                                            <div id="line33">
-                                            <button class='corridorSelector' id='line33Button'>33+</button>
+                                            <div id="line32">
+                                            <button class='corridorSelector' id='line32Button'>32+</button>
                                                 <ul id='menu'>
                                                     <li>variant1</li>
                                                 </ul>  

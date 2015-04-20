@@ -1,187 +1,528 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>eBRTCityScope</title>
+	<title>test</title>
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-	<!-- External Stylesheets -->
+	
+    <!-- External Stylesheets -->
 	<link rel="stylesheet" href="leaflet-0.7.3/leaflet.css" />
-	<!-- Bootstrap Core CSS -->
+	
+    <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="css/the-big-picture.css" rel="stylesheet">
+
+    <!-- Add the Leaflet JavaScript library -->
+    <script src="leaflet-0.7.3/leaflet.js"></script>
+    
+    <!-- jQuery -->
+    <script src="leaflet-0.7.3/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="leaflet-0.7.3/js/bootstrap.min.js"></script>
+
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    
+    <!-- Font: Google Open Sans -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,800,700,600,300' rel='stylesheet' type='text/css'>
+
+    <style type="text/css">
+        /* map title bar along the top */
+        .title {
+            position: absolute;
+            z-index: 2;
+            opacity: 0.85;
+            text-indent: 1em;
+            font-size: 2em;
+            margin-top: 1%;
+            margin-left: 3%;
+            margin-right: 3%;
+            text-align: left;
+            font-weight: bold;
+            color: gray;
+            background-color: yellow;
+            border-bottom-right-radius: 2em;
+            border-top-right-radius: 2em;
+            border-bottom-left-radius: 2em;
+            border-top-left-radius: 2em;
+        }
+
+        /* position the individual title bars */
+        #mapBTitle {
+            width: 95%;
+        }
+
+
+        #navbar {
+
+            padding: 0px;
+            background-color: #636363;
+            opacity: .85;
+            color: white;        
+        }
+
+        .nav {
+            margin-top: 0px;
+        }
+
+
+        .filterbuttons {
+            padding: 0px;
+        }
+
+         #variantlist {
+            padding: 20px;   
+        }
+
+
+        #cost { 
+            width: 300px;
+            height: 200px;
+            background: #ccc;
+            float: left; 
+            position: absolute;
+            margin-top: 4%;
+            margin-left: 36%;
+            background-color: white; 
+            opacity: .8;
+            text-indent: 1em;
+            font-size: 1.5em;
+            }
+
+        #scorecard { 
+            width: 400px;
+            height: 200px;
+            background: #ccc;
+            float: right; 
+            position: absolute;
+            margin-left: 82%;
+            margin-top: 4%;
+            background-color: white; 
+            opacity: .8;
+            text-indent: 1em;
+            font-size: 1.5em;
+            }
+
+       #legend { 
+            width: 200px;
+            height: 200px;
+            background: #ccc;
+            float: left; 
+            position: absolute;
+            margin-left: 90%;
+            margin-top: 35%;
+            background-color: white; 
+            opacity: .7;
+            text-indent: 1em;
+            font-size: 1.5em;
+            }
+
+
+        .variant_list{
+            padding-top: 35px;
+            padding-left: 15px;
+            padding-right: 20px;
+        }
+
+        .stationSelector{
+            margin-top: 25px;
+        }
+
+        .station_icons {
+            height: 50px;
+            margin: 5px;
+
+        }
+
+        .frequency_slider {
+            padding: 5px;
+            padding-left: 15px;
+            padding-top: 30px;
+
+        }
+
+        #slider {
+            margin-top: 5%%;
+        }
+
+        .corridorSelectorField{
+            margin-left: 20px;
+
+        }
+
+        .corridorSelector {
+            width: 180px ;
+            font-family: 'Open Sans', sans-serif;
+
+        }
+
+        #wrapper {
+            display:table;
+            width:720px;
+            height:150px;
+            color: black;
+        }
+        #row {
+            display:table-row;
+        }
+        #line28 {
+            display:table-cell;
+            background-color:#fdbb84;
+            width:180px;
+        }
+        #line66 {
+            display:table-cell;
+            background-color:#7fcdbb;
+            width:180px;
+        }
+        #line33 {
+            display:table-cell;
+            background-color: #c994c7;
+            width:180px;
+        }
+        #lineCT {
+            display:table-cell;
+            background-color:#a6bddb;
+            width:180px;
+        }
+
+        #line28Button { 
+            background-color:#e34a33;
+            color: white;
+            border: none;
+            font-weight: 800;
+        }
+
+        #line66Button { 
+            background-color:#2c7fb8;
+            color: white;
+            border: none;
+            font-weight: 800;
+        }
+
+        #line33Button { 
+            background-color: #dd1c77;
+            color: white;
+            border: none;
+            font-weight: 800;
+        }
+
+        #lineCTButton { 
+            background-color:#1c9099;
+            color: white;
+            border: none;
+            font-weight: 800;
+        }
+
+    </style>
+
+
+    <!-- jQuery UI Script for floating elements-->
+    <script>
+      $(function() {
+        $( "#cost, #scorecard, #legend" ).draggable({ 
+            }
+        );
+      });
+    
+
+
+    </script>    
+
+
 </head>
+
+
 <body>
-	<!-- Map Content -->
-	<div id="map" style="width: 1920px; height: 1080px"></div>
-	<!-- Add the Leaflet JavaScript library -->
-	<script src="leaflet-0.7.3/leaflet.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script>
-    	// Set initial map setting
-    	var map = L.map('map',{ center: [42.31654, -71.07808], zoom: 14});
+    
+    <div id="mapBTitle" class="title">CoAXs</div>
 
-    	// Add OpenStreetMap tile layer to map element
-		L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png', { attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a>', maxZoom:15, minZoom:13 }).addTo(map);
-		/*
-		var stationIcon = L.icon({
+        <!-- Side-by-Side Map Content -->
+    <div id="mapB" style="width: 50%; height: 100%; left:0%; position: absolute"></div>
+        <script>       
+        // Set Scale B map setting
+        var mapB = L.map('mapB',{ center: [42.31312, -71.0915], zoom: 12, attributionControl: false});
+            L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png', { attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a>', maxZoom:15, minZoom:12 }).addTo(mapB);
+        </script>       
 
-		});
-		{icon: myIcon}   */
-
-		// Create point feature for BRT Station
-		var dudleyRoxbury = L.marker([42.32996, -71.09125]).addTo(map);
-		var dudleyWarren = L.marker([42.32859, -71.08255]).addTo(map);
-		var dudleyBlueHill = L.marker([42.32557, -71.07511]).addTo(map);
-		var blueHillWestCottage = L.marker([42.32053, -71.07777]).addTo(map);
-		var blueHillMaywood = L.marker([42.31592, -71.07825]).addTo(map);
-		var blueHillWarren = L.marker([42.30961, -71.08255]).addTo(map);
-		var blueHillGlenway = L.marker([42.30192, -71.08551]).addTo(map);
-		var blueHillTalbot = L.marker([42.29492, -71.08797]).addTo(map);
-		var blueHillWoodrow = L.marker([42.28571, -71.09105]).addTo(map);
-		var blueHillWalkHill = L.marker([42.27733, -71.09362]).addTo(map);
-
-
-		// Create line feature between stations
-		var roxburyWarren = L.polyline([[42.32996, -71.09125], [42.32859, -71.08255]], {color: 'blue', weight: 10}).addTo(map);
-		var warrenBlueHill = L.polyline([[42.32859, -71.08255], [42.32557, -71.07511]], {color: 'blue', weight: 10}).addTo(map);
-		var blueHillWestCottage = L.polyline([[42.32557, -71.07511], [42.32053, -71.07777]], {color: 'blue', weight: 10}).addTo(map);
-		var westCottageMaywood = L.polyline([[42.32053, -71.07777], [42.31592, -71.07825]], {color: 'blue', weight: 10}).addTo(map);
-		var maywoodWarren = L.polyline([[42.31592, -71.07825], [42.30961, -71.08255]], {color: 'blue', weight: 10}).addTo(map);
-		var warrenGlenway = L.polyline([[42.30961, -71.08255], [42.30192, -71.08551]], {color: 'blue', weight: 10}).addTo(map);
-		var glenwayTalbot = L.polyline([[42.30192, -71.08551], [42.29492, -71.08797]], {color: 'blue', weight: 10}).addTo(map);
-		var talbotWoodrow = L.polyline([[42.29492, -71.08797], [42.28571, -71.09105]], {color: 'blue', weight: 10}).addTo(map);
-		var woodrowWalkHill = L.polyline([[42.28571, -71.09105], [42.27733, -71.09362]], {color: 'blue', weight: 10}).addTo(map);
-
-		// Blockout non-corridor space
-		var myArea = L.polygon(
-			[[[90, -180],
- 			[90, 180],
- 			[-90, 180],
- 			[-90, -180]], // outer ring
-			[[42.3315, -71.0950], 
-			[42.3365, -71.0881],
-		    [42.3352, -71.0664], 
-		    [42.3212, -71.0566],
-		    [42.3059, -71.0541],
-		    [42.2873, -71.0439],
-		    [42.2738, -71.0507],
-		    [42.2666, -71.0625],
-		    [42.2634, -71.0930],
-		    [42.2687, -71.1210],
-		    
-		    [42.3015, -71.1132],
-		    ]],  // cutout
-		    {color: 'yellow', fillOpacity:.8, weight: 0}).addTo(map);
-
-        // Bind popup to data point object
-        myDataPoint.bindPopup("<h3>Kendall Square</h3><p>Cambridge, MA<br>Information about Kendall Square.</p>");
+        <!-- Station & Route Marking -->
+        <script>
         
-        // Bind popup to line object
-        myDataLine.bindPopup("Mass Ave Bridge");
-        
-        // Bind popup to area object
-        // myArea.bindPopup("Out of Bound");
+        var station_location = null;
 
-        // Create an Empty Popup
+        // Create specific icons             
+        var StationIcon = L.Icon.extend({
+             options:{ 
+                    iconSize: [21,25],
+                            shadowSize: [36,36],
+                            iconAnchor: [18,18],
+                            shadowAnchor: [18,18],
+                            popupAnchor: [0,-6]
+                        }
+                    });
+        
+        var icon28 = new StationIcon({iconUrl: 'assets/bus_stop_blue.png'});
+        var ctPlus = new StationIcon({iconUrl: 'assets/bus_stop_red.png'});
+        var icon33 = new StationIcon({iconUrl: 'assets/bus_stop_green.png'});
+        var icon66 = new StationIcon({iconUrl: 'assets/bus_stop_orange.png'});
+
+
+        // add GeoJSON station location layer to the map once the file is loaded
+        $.getJSON("Shapefiles/v1/GeoJSON/stops.geojson",function(data){         
+            station_location = L.geoJson(data,{
+                onEachFeature: function (feature, layer) {
+                    layer.bindPopup(feature.properties.stop_name);
+                }, 
+                                filter: function (feature, layer){
+                                    return feature.properties.direction == 0;
+                                },
+                                pointToLayer: function (feature, latlng) {
+                                    if (feature.properties.corridor == "28+"){
+                                    var marker = L.marker(latlng,{icon: icon28});
+                                    } 
+                                    else if (feature.properties.corridor == "CT+"){
+                                    var marker = L.marker(latlng,{icon: ctPlus});
+                                    } 
+                                    else if (feature.properties.corridor == "66+"){
+                                    var marker = L.marker(latlng,{icon: icon66});
+                                    } 
+                                    else {
+                                    var marker = L.marker(latlng,{icon: icon33});
+                                    };
+                                    return marker;
+                               }
+            }).addTo(mapB);
+        });
+    
+        /*
+        var routeLines = null;
+        
+        // Create route lines             
+        var line = L.polyline.extend({
+             options:{ 
+                    weight: [4],
+                    opacity: [.8]
+                        }
+        });
+
+        var line28 = new line({color: 'red'});
+        var lineCTPlus = new line({color: 'blue'});
+        var line33 = new line({color: 'green'});
+        var line66 = new line({color: 'yellow'});
+
+
+        // add GeoJSON route line layer to the map once the file is loaded
+        $.getJSON("Shapefiles/v1/GeoJSON/routings.geojson",function(data){    
+                routeLines = L.geoJson(data, {
+                    pointToLayer: {
+                        function (feature, latlng) {
+                        if (feature.properties.corridor == "28+") {
+                            var line = line28;
+                        } else if (feature.properties.corridor == "CT+"){
+                            var line = lineCTPlus;
+                        } else if (feature.properties.corridor == "66+"){
+                            var line = line33;
+                        } else {
+                            var line = line66;
+                        };
+                        return line;
+                        }
+                    }
+                    /*
+                    function (feature, latlng) {
+                    if (feature.properties.corridor == "28+") {
+                        var line = L.polyline(latlng,{polyline: 'line28'});
+                    } else if (feature.properties.corridor == "CT+"){
+                        var line = L.polyline(latlng,{polyline: 'lineCTPlus'});
+                    } else if (feature.properties.corridor == "66+"){
+                        var line = L.polyline(latlng,{polyline: 'line33'});
+                    } else {
+                        var line = L.polyline(latlng,{polyline: 'line66'});
+                    };
+                    return line;
+                    }
+                   
+                }).addTo(mapB);
+        });
+
+        */
+
+        // Event Listener for a click on the 28+ button
+        $(document).ready(function() {
+            $("#line28").on("click", function() {
+                filterLine28()
+                mapB.fitBounds([
+                    [42.25876, -71.11553],  //Southwest corner coordinate
+                    [42.33621, -71.06918]   //Northeast corner coordinate
+                ]);
+                console.log("line 28 clicked");
+            });
+    
+        });
+        
+        // Function to update station icons to filtered subset of data showing Starbucks
+        function filterLine28(){
+            removeStations();
+            $.getJSON("Shapefiles/v1/GeoJSON/stops.geojson",function(data){    
+                station_location = L.geoJson(data,{
+                    onEachFeature: function (feature, layer) {
+                        layer.bindPopup(feature.properties.stop_name);
+                    }, filter: function (feature, layer) {
+                        return feature.properties.corridor == "28+" && feature.properties.direction == 0;
+                    }, pointToLayer: function (feature, latlng) {
+                        var marker = L.marker(latlng,{icon: icon28});
+                    return marker;
+                                        
+                    }
+                }).addTo(mapB);
+            });
+        };
+
+        function removeStations(){
+            mapB.removeLayer(station_location);
+        };
+
+        function outboundFilter(){
+            return feature.properties.direction == 0;   // need to build filter w/ javascript
+        };
+
         var popup = L.popup();
-         
+                     
         // Write function to set Properties of the Popup
         function onMapClick(e) {
             popup
-                .setLatLng(e.latlng)
-                .setContent("You clicked the map at " + e.latlng.toString())
-                .openOn(map);
-        }
-         
+            .setLatLng(e.latlng)
+            .setContent("You clicked the map at " + e.latlng.toString())
+            .openOn(mapB);
+        } 
+
+
         // Listen for a click event on the Map element
-        map.on('click', onMapClick);
+        mapB.on('click', onMapClick);
 
-        // load GeoJSON from an external file
-		
-		/*
-		$.getJSON("data/coffee_cafes.geojson",function(data){
-		    // add GeoJSON layer to the map once the file is loaded
-		    L.geoJson(data,{
-				onEachFeature: function (feature, layer) {
-					layer.bindPopup(feature.properties.name);
-				}
-			}).addTo(map);
-			
-		});
-		*/
-	</script>
+        // load GeoJSON of station location
+
+        </script>
+        <!-- / Station & Route Marking -->
 
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">CORRIDOR EDITOR</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+    <div id="mapA" style="width: 50%; height: 100%; left: 50%; position: absolute"></div>
+        <script>
+        // Set Scale A map setting
+        var mapA = L.map('mapA',{ center: [42.31312, -71.0915], zoom: 11, zoomControl: false});
+            L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a>', maxZoom:11, minZoom:11 }).addTo(mapA);
+        </script>    
+
+
+
+     <!-- CONTROL PANEL -->   
+    <div id="navbar" style="width: 100%; height: 10%; bottom: 0%; position: absolute">
+     
+
+       
+
                 <ul class="nav navbar-nav">
-                    <li>
-                       <a href="#">Variant:  
-                        <select name="select">
-						  <option value="value1">Value 1</option> 
-						  <option value="value2" selected>Value 2</option>
-						  <option value="value3">Value 3</option>
-						</select>
-						</a>
-                    </li>
-                    <li>
-                        <a href="#">Station Stype:
+                                <li>
+                                    <div class='variant_list'>Variant:  
+                                        <select name="select">
+                                          <option value="value1">Value 1</option> 
+                                          <option value="value2" selected>Value 2</option>
+                                          <option value="value3">Value 3</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class='stationSelector'> Station Stype:
+                                        <img class='station_icons' id='pole_icon' src='assets/bus_stop_pole.png'>
+                                        <img class='station_icons' id='platform' src='assets/bus_stop_leveled.png'>
+                                        <img class='station_icons' id='fullstation' src='assets/bus_full_station.png'>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class='frequency_slider'> Rush-Hour Frequency
+                                        <input id='slider' type="range" min="1" max="15" step="1">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class='frequency_slider'> Off-Peak Frequency
+                                        <input id='slider' type="range" min="1" max="15" step="1">        
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class='corridorSelectorField' id='wrapper'>
+                                        <div id='row'>    
+                                            <div id="line28">
+                                            <button class='corridorSelector' id='line28Button'>28+</button>
+                                                <ul id='menu'>
+                                                    <li>variant1</li>
+                                                    <li>variant1</li>
+                                                </ul>  
+                                            </div>
 
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">Rush-Hour Frequency
-                        	<input type="range" min="1" max="15" step="1">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">Off-Peak Frequency
-                        	<input type="range" min="1" max="15" step="1">
-                        	
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
+                                            <div id="line66">
+                                            <button class='corridorSelector' id='line66Button' >66+</button>
+                                                <ul id='menu'>
+                                                    <li>variant1</li>
+                                                    <li>variant1</li>
+                                                </ul>  
+                                            </div>
 
-    <!-- Page Content -->
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-sm-12">
-                <h1></h1>
-                <p></p>
-            </div>
-        </div>
-        <!-- /.row -->
+                                            <div id="line33">
+                                            <button class='corridorSelector' id='line33Button'>33+</button>
+                                                <ul id='menu'>
+                                                    <li>variant1</li>
+                                                </ul>  
+                                            </div>
+
+                                            <div id="lineCT">
+                                            <button class='corridorSelector' id='lineCTButton'>CT+</button>
+                                                <ul id='menu'>
+                                                    <li>variant1</li>
+                                                    <li>variant1</li>
+                                                    <li>variant1</li>
+                                                </ul>  
+                                            </div>
+                                                
+                                        </div>
+                                    </div>
+                                        <!--
+                                         <div class="filterbuttons">
+                                        <button id="lineAll">All Lines</button>
+                                        <button id="lineMBTA">MBTA Rails</button>
+                                        <button id="outbound">Outbound</button>
+                                        <button id="inbound">Inbound</button>
+                                        -->    
+                                </li>
+
+                            </ul>
+
+         
+
+    <!-- FLOATING ELEMENTS: SCORECARD, COST CHART & LEGEND-->                         
     </div>
-    <!-- /.container -->
+    <div id="cost" class="ui-widget-content">
+      <p>COST (drag to reposition)</p>
+    </div>
+    
+    </div>
+        <div id="scorecard" class="ui-widget-content">
+        <p>SCORECARD (drag to reposition)</p>
+    </div>    
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    </div>
+        <div id="legend" class="ui-widget-content">
+        <p>LEGEND (drag to reposition)</p>
+    </div>    
 
 
 </body>

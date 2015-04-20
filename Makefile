@@ -1,2 +1,2 @@
 server:
-	python -m SimpleHTTPServer 8600
+	python -m SimpleHTTPServer 8400

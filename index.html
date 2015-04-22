@@ -143,6 +143,20 @@
             font-size: 1.5em;
             }
 
+        #chart { 
+            width: 400px;
+            height: 200px;
+            background: #ccc;
+            float: right; 
+            position: absolute;
+            margin-left: 82%;
+            margin-top: 13%;
+            background-color: white; 
+            opacity: .8;
+            text-indent: 1em;
+            font-size: 1.5em;
+            }
+
        #legend { 
             width: 200px;
             height: 200px;
@@ -381,23 +395,13 @@
         var line32 = new line({color: 'green'});
         var line66 = new line({color: 'yellow'});
 
-
+       
+        
         // add GeoJSON route line layer to the map once the file is loaded
         $.getJSON("Shapefiles/v1/GeoJSON/routings.geojson",function(data){    
                 routeLines = L.geoJson(data, {
-                    pointToLayer: {
-                        function (feature, latlng) {
-                        if (feature.properties.corridor == "28+") {
-                            var line = line28;
-                        } else if (feature.properties.corridor == "CT+"){
-                            var line = lineCTPlus;
-                        } else if (feature.properties.corridor == "66+"){
-                            var line = line32;
-                        } else {
-                            var line = line66;
-                        };
-                        return line;
-                        }
+                    
+
                     }
                     /*
                     function (feature, latlng) {
@@ -417,6 +421,8 @@
         });
 
         */
+
+
 
         // Event Listener for a click on the 28+ button
         $(document).ready(function() {
@@ -688,6 +694,11 @@
     </div>
         <div id="scorecard" class="ui-widget-content">
         <p>SCORECARD (drag to reposition)</p>
+    </div>    
+
+    </div>
+        <div id="chart" class="ui-widget-content">
+        <p>OPPORTUNITY CHART (drag to reposition)</p>
     </div>    
 
     </div>

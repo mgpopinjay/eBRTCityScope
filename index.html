@@ -42,13 +42,14 @@
             z-index: 2;
             opacity: 0.85;
             text-indent: 1em;
-            font-size: 2em;
+            font-size: 2.5em;
             margin-top: 1%;
             margin-left: 3%;
             margin-right: 3%;
             text-align: left;
-            font-weight: bold;
-            color: gray;
+            font-weight: 600;
+            color: #525252;
+            font-family: 'Open Sans', sans-serif; 
             background-color: yellow;
             border-bottom-right-radius: 2em;
             border-top-right-radius: 2em;
@@ -59,15 +60,45 @@
         /* position the individual title bars */
         #mapBTitle {
             width: 95%;
+
         }
 
+        #scaleBTitle {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 2em;
+            font-weight: 800;
+            position: absolute;
+            color: #525252;
+            margin-left: 9%;
+            margin-top: 80px;
+            z-index: 2;
+        }
+
+
+        #scaleATitle {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 2em;
+            font-weight: 800;
+            position: absolute;
+            color: #525252;
+            margin-left: 5%;
+            margin-top: 80px;
+            z-index: 2;
+        }
 
         #navbar {
 
             padding: 0px;
-            background-color: #636363;
-            opacity: .85;
-            color: white;        
+            background-color: yellow;
+            opacity: 1;
+            color: #525252;
+            font-family: 'Open Sans', sans-serif;   
+              
+        }
+
+        #navbar ul {
+            list-style-type: none;
+            padding-left:1em;
         }
 
         .nav {
@@ -124,7 +155,7 @@
             opacity: .7;
             text-indent: 1em;
             font-size: 1.5em;
-            }
+        }
 
 
         .variant_list{
@@ -134,45 +165,55 @@
         }
 
         .stationSelector{
-            margin-top: 25px;
+            margin-top: 4px;
+            margin-left: 30px;
+            margin-right: 10px;
         }
 
         .station_icons {
-            height: 50px;
+            height: 70px;
             margin: 5px;
+        }
 
+        .stationTitle {
+            font-size: 1.2em;
+            font-weight: 400;
         }
 
         .frequency_slider {
-            padding: 5px;
-            padding-left: 15px;
-            padding-top: 30px;
-
+            padding: 0px;
+            padding-left: 20px;
+            padding-right: 5px;            
+            margin-top: 4px;
+            margin-right: 5px;
+            font-size: 1.2em;
+            font-weight: 400;
         }
 
         #slider {
-            margin-top: 5%%;
+            margin-top: 10px;
+            padding: 10px;
         }
 
         .corridorSelectorField{
             margin-left: 20px;
-
         }
 
         .corridorSelector {
             width: 180px ;
             font-family: 'Open Sans', sans-serif;
-
         }
 
+         /* CORRIDOR EDITOR STYLING */
         #wrapper {
             display:table;
-            width:720px;
-            height:150px;
+            width:960px;
             color: black;
         }
+
         #row {
             display:table-row;
+            height: 120px;
         }
         #line28 {
             display:table-cell;
@@ -200,6 +241,7 @@
             color: white;
             border: none;
             font-weight: 800;
+            font-size: 1.2em;  
         }
 
         #line66Button { 
@@ -207,6 +249,7 @@
             color: white;
             border: none;
             font-weight: 800;
+            font-size: 1.2em;  
         }
 
         #line32Button { 
@@ -214,6 +257,7 @@
             color: white;
             border: none;
             font-weight: 800;
+            font-size: 1.2em;  
         }
 
         #lineCTButton { 
@@ -221,7 +265,27 @@
             color: white;
             border: none;
             font-weight: 800;
+            font-size: 1.2em;           
         }
+
+
+        /* SCENARIO MANAGER STYLING */
+
+        #scenarioManager {
+            display:table-cell;
+            background-color:#bdbdbd;
+            width:240px;
+        }
+
+        #scenarioManagerButton { 
+            background-color: #636363;
+            color: white;
+            border: none;
+            font-weight: 800;
+            width: 240px;    
+            font-size: 1.2em;
+        }
+
 
     </style>
 
@@ -232,9 +296,7 @@
         $( "#cost, #scorecard, #legend" ).draggable({ 
             }
         );
-      });
-    
-
+     
     </script>    
 
 
@@ -246,7 +308,10 @@
     <div id="mapBTitle" class="title">CoAXs</div>
 
         <!-- Side-by-Side Map Content -->
-    <div id="mapB" style="width: 50%; height: 100%; left:0%; position: absolute"></div>
+    <div id="mapB" style="width: 50%; height: 100%; left:0%; position: absolute">  
+        <div id='scaleBTitle' >CORRIDOR EDITOR</div>
+    </div>
+
         <script>       
         // Set Scale B map setting
         var mapB = L.map('mapB',{ center: [42.31312, -71.0915], zoom: 12, attributionControl: false});
@@ -493,7 +558,9 @@
 
 
 
-    <div id="mapA" style="width: 50%; height: 100%; left: 50%; position: absolute"></div>
+    <div id="mapA" style="width: 50%; height: 100%; left: 50%; position: absolute">
+         <div id='scaleATitle' >ACCESSBILITY IMPACT MAP</div>
+    </div>
         <script>
         // Set Scale A map setting
         var mapA = L.map('mapA',{ center: [42.31312, -71.0915], zoom: 11, zoomControl: false});
@@ -502,34 +569,31 @@
 
 
 
-     <!-- CONTROL PANEL -->   
-    <div id="navbar" style="width: 100%; height: 10%; bottom: 0%; position: absolute">
+    <!-- CONTROL PANEL -->   
+    <div id="navbar" style="width: 100%; height: 10%; bottom: 0; position: absolute">
      
 
                 <ul class="nav navbar-nav">
+                               
                                 <li>
-                                    <div class='variant_list'>Variant:  
-                                        <select name="select">
-                                          <option value="value1">Value 1</option> 
-                                          <option value="value2" selected>Value 2</option>
-                                          <option value="value3">Value 3</option>
-                                        </select>
+                                    <div class='stationSelector'> 
+                                        <div class='stationTitle'> STATION TYPE: </div>
+                                            <div>
+                                                <img class='station_icons' id='pole_icon' title='Pay on Bus' src='assets/bus_stop_pole.png'>
+                                                <img class='station_icons' id='platform' src='assets/bus_stop_leveled.png'>
+                                                <img class='station_icons' id='fullstation' src='assets/bus_full_station.png'>
+                                            </div>
+                                       
                                     </div>
                                 </li>
                                 <li>
-                                    <div class='stationSelector'> Station Stype:
-                                        <img class='station_icons' id='pole_icon' src='assets/bus_stop_pole.png'>
-                                        <img class='station_icons' id='platform' src='assets/bus_stop_leveled.png'>
-                                        <img class='station_icons' id='fullstation' src='assets/bus_full_station.png'>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class='frequency_slider'> Rush-Hour Frequency
+
+                                    <div class='frequency_slider'> RUSH-HOUR FREQUENCY
                                         <input id='slider' type="range" min="1" max="15" step="1">
                                     </div>
                                 </li>
                                 <li>
-                                    <div class='frequency_slider'> Off-Peak Frequency
+                                    <div class='frequency_slider'> OFF-PEAK FREQUENCY
                                         <input id='slider' type="range" min="1" max="15" step="1">        
                                     </div>
                                 </li>
@@ -540,7 +604,7 @@
                                             <button class='corridorSelector' id='line28Button'>28+</button>
                                                 <ul id='menu'>
                                                     <li>variant1</li>
-                                                    <li>variant1</li>
+                                                    <li>variant2</li>
                                                 </ul>  
                                             </div>
 
@@ -548,7 +612,7 @@
                                             <button class='corridorSelector' id='line66Button' >66+</button>
                                                 <ul id='menu'>
                                                     <li>variant1</li>
-                                                    <li>variant1</li>
+                                                    <li>variant2</li>
                                                 </ul>  
                                             </div>
 
@@ -563,13 +627,23 @@
                                             <button class='corridorSelector' id='lineCTButton'>CT+</button>
                                                 <ul id='menu'>
                                                     <li>variant1</li>
-                                                    <li>variant1</li>
-                                                    <li>variant1</li>
+                                                    <li>variant2</li>
+                                                    <li>variant3</li>
+                                                </ul>  
+                                            </div>
+
+                                            <div id="scenarioManager">
+                                            <button id="scenarioManagerButton">SCENARIOS</button>
+                                                <ul id='menu'>
+                                                    <li>Team MassDOT</li>
+                                                    <li>Riders Union</li>
+                                                    <li>Street Chief</li>
                                                 </ul>  
                                             </div>
                                                 
                                         </div>
                                     </div>
+
                                         <!--
                                          <div class="filterbuttons">
                                         <button id="lineAll">All Lines</button>
@@ -578,8 +652,32 @@
                                         <button id="inbound">Inbound</button>
                                         -->    
                                 </li>
+                                <li>
+                                    <div class='stationSelector'> 
+                                        <div class='stationTitle'> FROM: </div>
+                                            <div>
+                                                <img class='station_icons' id='pole_icon' src='assets/marker_map.png'>
+                                                <img class='station_icons' id='platform' src='assets/map.png'>
+                                                
+                                            </div>
+                                       
+                                    </div>
+                                </li>
+                                 <li>
+                                    <div class='stationSelector'> 
+                                        <div class='stationTitle'> TO: </div>
+                                            <div>
+                                                <img class='station_icons' src='assets/work_for_food.png'>
+                                                <img class='station_icons' src='assets/healthcare.png'>
+                                                <img class='station_icons' src='assets/education_brain.png'>
+                                                <img class='station_icons' src='assets/basket.png'>
+                                            </div>
+                                       
+                                    </div>
+                                </li>
 
-                            </ul>
+
+                </ul>
 
          
 

@@ -8,18 +8,22 @@
     <meta name="description" content="">
     <meta name="author" content="">
 	
-    <!-- External Stylesheets -->
-	<link rel="stylesheet" href="leaflet-0.7.3/leaflet.css" />
+    <!-- Leaflet Stylesheets -->
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
 	
+    <!-- Add the Leaflet JavaScript library -->
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    
+    <!-- Add Leaflet Routing Machine -->
+    <link rel="stylesheet" href="leaflet-routing-machine-2.3.0/leaflet-routing-machine.css" />
+    <script src="leaflet-routing-machine-2.3.0/leaflet-routing-machine.js"></script>
+
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="css/the-big-picture.css" rel="stylesheet">
 
-    <!-- Add the Leaflet JavaScript library -->
-    <script src="leaflet-0.7.3/leaflet.js"></script>
-    
     <!-- jQuery -->
     <script src="leaflet-0.7.3/js/jquery.js"></script>
 
@@ -30,10 +34,11 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <link rel="stylesheet" href="/resources/demos/style.css">
     
     <!-- Font: Google Open Sans -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,800,700,600,300' rel='stylesheet' type='text/css'>
+
+   
 
     <style type="text/css">
         /* map title bar along the top */
@@ -61,6 +66,11 @@
         #mapBTitle {
             width: 95%;
 
+        }
+
+        #mapA {
+            margin-left: 8px;
+            background-color: gray;
         }
 
         #scaleBTitle {
@@ -379,6 +389,15 @@
             }).addTo(mapB);
         });
     
+        L.Routing.control({
+          waypoints: [
+            L.latLng(42.32606, -71.14677),
+            L.latLng(42.47311, -71.063),
+            L.latLng(42.39329, -71.12446),
+            L.latLng(42.23818, -71.05545)
+          ]
+        }).addTo(mapB);
+
         /*
         var routeLines = null;
         
@@ -677,6 +696,11 @@
                                                 <img class='station_icons' src='assets/basket.png'>
                                             </div>
                                        
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class='frequency_slider'> BY TRAVEL TIME OF:
+                                        <input id='slider' type="range" min="1" max="60" step="10">        
                                     </div>
                                 </li>
 

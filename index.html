@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>CoAXs Sandbox V0.8</title>
+	<title>CoAXs Sandbox V0.9</title>
 	<!-- CartoDB -->
 	<link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.14/themes/css/cartodb.css" />
 	<script src="http://libs.cartocdn.com/cartodb.js/v3/3.14/cartodb.js"></script>
@@ -166,6 +166,14 @@
         .station_icons {
             height: 70px;
             margin: 5px;
+
+        }
+
+        .save_icons {
+            height: 52px;
+            margin-top: 15px;
+            margin-left: 20px;
+            margin-right:15px;
         }
 
         .stationTitle {
@@ -278,6 +286,28 @@
             width: 240px;    
             font-size: 1.2em;
         }
+
+        .scenarioIcon {
+            width: 62px;
+            margin: 12px
+        }
+
+        #compareIcon {
+            width: 55px;
+        }
+
+
+        .scenarioLists {
+            margin-top: 30px;
+        }
+
+        #scenarioListA {
+            margin: 8px;
+        }
+         #scenarioListB {
+            margin: 8px;
+        }
+
 
 
     </style>
@@ -544,6 +574,14 @@
                                     <div class='frequency_slider'> OFF-PEAK FREQUENCY
                                         <input id='slider' type="range" min="1" max="15" step="1">        
                                     </div>
+
+                                </li>
+                                <li>
+                                    <div class='frequency_slider'> SAVE </div>
+                                    <div>
+                                        <img class='save_icons' id='pole_icon' title='save_variant' src='assets/save.png'>        
+                                    </div>
+                                    
                                 </li>
                                 <li>
                                     <div class='corridorSelectorField' id='wrapper'>
@@ -602,10 +640,45 @@
                                 </li>
                                 <li>
                                     <div class='stationSelector'> 
+                                        <div class='stationTitle'> SCENARIO VIEW: </div>
+                                            <div>
+                                                <img class='scenarioIcon' src='assets/line_graph_single.png'>
+                                                <img class='scenarioIcon' id='compareIcon' src='assets/line_graph_double.png'>
+                                                
+                                            </div>
+                                       
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class='scenarioLists'> </div>
+                                    <div>
+
+                                        <select name="select" id="scenarioListA">
+                                          <option value="value1" selected>MBTA Current</option> 
+                                          <option value="value2" >Team MassDOT</option>
+                                          <option value="value3">Riders Union</option>
+                                          <option value="value3">Street Chief</option>
+                                        </select>
+
+                                    </div>
+                                    <div>
+
+                                        <select name="select" id="scenarioListB">
+                                          <option value="value1" selected>MBTA Current</option> 
+                                          <option value="value2" >Team MassDOT</option>
+                                          <option value="value3">Riders Union</option>
+                                          <option value="value3">Street Chief</option>
+                                        </select>
+
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class='stationSelector'> 
                                         <div class='stationTitle'> FROM: </div>
                                             <div>
-                                                <img class='station_icons' id='pole_icon' src='assets/marker_map.png'>
-                                                <img class='station_icons' id='platform' src='assets/map.png'>
+                                                <img class='station_icons' src='assets/marker_map.png'>
+                                                <img class='station_icons' src='assets/map.png'>
                                                 
                                             </div>
                                        
